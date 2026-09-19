@@ -43,3 +43,8 @@ touch agent/__init__.py agent/llm.py agent/main.py
 
 python -m agent.main
 > Напиши record User с Id, Name, Email и методом валидации
+
+python -m agent.main
+> /new-project C:/projects/HelloAgent | программа, которая спрашивает имя у пользователя и здоровается
+
+> /open C:/projects/HelloAgent

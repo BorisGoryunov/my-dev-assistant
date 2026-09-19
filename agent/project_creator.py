@@ -38,29 +38,32 @@ using System;
 
 
 def create_project(project_path: Path, task: str) -> None:
-    print(f"[1/4] Создаю проект в {project_path}...")
+    print(f"[1/3] Создаю проект в {project_path}...")
     result = create_console_project(project_path)
     print(result)
 
-    print(f"[2/4] Прошу модель написать код...")
+    print(f"[2/3] Прошу модель написать код...")
     messages = [
         {"role": "system", "content": CREATE_PROMPT},
         {"role": "user", "content": task},
     ]
     code = chat(messages)
+
+    if code.startswith("```"):
+        print("⚠ Модель добавила markdown — чищу принудительно")    
+
     code = strip_markdown_fence(code)
     program_cs = project_path / "Program.cs"
     program_cs.write_text(code, encoding="utf-8")
     print(f"Program.cs записан ({len(code)} символов)")
 
-    print(f"[3/4] Собираю проект...")
+    print(f"[3/3] Собираю проект...")
     build_result = build(project_path)
     print(build_result)
 
     if "exit=0" in build_result:
-        print(f"[4/4] Запускаю...")
-        run_result = run(project_path)
-        print(run_result)
+        print(f"\n✅ Готово! Проект собран: {project_path}")
+        print(f"Запусти вручную:  cd {project_path} && dotnet run")        
     else:
         print("Сборка упала — запуск пропущен.")
 
