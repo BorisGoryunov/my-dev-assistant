@@ -1,7 +1,7 @@
 """Обёртка над Ollama для локальной модели."""
 import ollama
 
-MODEL = "qwen2.5-coder:7b"
+MODEL = "dotnet-coder"
 
 SYSTEM_PROMPT = """Ты — опытный C#/.NET разработчик. Пишешь чистый, идиоматичный код.
 Следуешь SOLID, используешь async/await где уместно, пишешь XML-документацию.
@@ -16,6 +16,7 @@ def chat(messages: list[dict]) -> str:
         options={
             "temperature": 0.2,     # ниже — стабильнее код
             "num_ctx": 8192,        # контекст 8k, влезает в память
+            "num_predict": 4096,   # ← максимум токенов на ответ
         },
     )
     return response.message.content

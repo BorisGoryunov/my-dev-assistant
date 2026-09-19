@@ -33,9 +33,10 @@ ollama run qwen2.5-coder:7b --verbose "напиши C# функцию для с�
 Проверь связку Python → Ollama:
 python -c "import ollama; print([m.model for m in ollama.list()['models']])"
 
-удалить модель:
+> удалить модель:
 ollama rm qwen2.5-coder:7b
-
+ollama rm qwen2.5-coder:14b
+ollama rm dotnet-coder
 
 mkdir -p agent workspace index
 touch agent/__init__.py agent/llm.py agent/main.py
@@ -48,3 +49,7 @@ python -m agent.main
 > /new-project C:/projects/HelloAgent | программа, которая спрашивает имя у пользователя и здоровается
 
 > /open C:/projects/HelloAgent
+
+ollama pull qwen2.5-coder:14b
+ollama run qwen2.5-coder:14b --verbose "напиши класс на C#"
+
