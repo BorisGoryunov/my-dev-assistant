@@ -88,8 +88,6 @@ def main():
             session.close()
             continue
 
-        print(user_input)                
-
         if user_input.startswith("/open "):
             print("OPEN")
             path = Path(user_input[len("/open "):].strip())
